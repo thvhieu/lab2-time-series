@@ -1,123 +1,79 @@
-# Lab 2 | Kiểm định ADF và mô hình ARIMA / SARIMA
+# Lab 2 | ADF, ARIMA và SARIMA
 
-**Nhóm:** 6 thành viên · **Hạn hoàn tất nội bộ:** 26/10/2026 · **Trạng thái:** notebook khung
+Notebook khung để thực hành phân tích chuỗi thời gian. Phần đầu đã có **mô tả dataset,
+bảng xem trước và đồ thị dữ liệu thật**; các phần bài làm chỉ chứa `TODO`, chưa có lời giải.
 
-Repo làm việc chung cho bài thực hành phân tích chuỗi thời gian: khám phá dữ liệu,
-kiểm định tính dừng, sai phân, ACF/PACF, mô hình ARIMA và phần nâng cao SARIMA.
-Nhận xét và lựa chọn mô hình được để dưới dạng `TODO` để nhóm hoàn thiện bằng kết quả thực chạy.
-
-## Truy cập nhanh
-
-- [Notebook tổng hợp](Lab2_ADF_ARIMA_SARIMA.ipynb)
-- [Phân công và tiến độ](PHAN_CONG.md)
-- [Quy trình đóng góp](CONTRIBUTING.md)
-- [Nguồn dữ liệu](data/SOURCES.md)
-- [Đề bài](resources/de_bai_lab2.pdf)
-
-## Cấu trúc
-
-```text
-Lab2/
-├── Lab2_ADF_ARIMA_SARIMA.ipynb   # Notebook tổng hợp do leader tích hợp
-├── PHAN_CONG.md                 # Chủ nhiệm từng phần, đầu ra và deadline
-├── CONTRIBUTING.md              # Nhánh, PR, quy tắc bàn giao
-├── requirements.txt            # Môi trường Python
-├── data/                       # CSV gốc và manifest kiểm tra toàn vẹn
-├── resources/                  # Đề bài gốc
-├── contributions/              # Thành viên nộp phần riêng, tránh sửa chung notebook
-├── figures/                    # Hình sinh ra khi chạy, không commit mặc định
-├── tables/                     # Bảng sinh ra khi chạy, không commit mặc định
-├── scripts/                    # Kiểm tra notebook và dữ liệu
-└── .github/                    # CI và mẫu pull request
-```
-
-## 1. Thiết lập môi trường
-
-Sử dụng **Python 3.12**. Sau khi clone, mở terminal tại thư mục gốc repo.
-
-### Windows / PowerShell
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m jupyter lab
-```
-
-### macOS / Linux
-
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m jupyter lab
-```
-
-Trong VS Code: mở repo, chọn interpreter trong `.venv`, rồi chọn đúng kernel cho notebook.
-CSV đã được lưu trong repo; không cần tải lại dữ liệu lúc chạy notebook.
-
-## 2. Chạy notebook
-
-1. Mở notebook tổng hợp, điền tên nhóm ở đầu bài.
-2. Chạy từ trên xuống để đọc dữ liệu, EDA, ADF và ACF/PACF.
-3. Điền tham số ở ô **CẤU HÌNH NHÓM** dựa trên kết quả trên train.
-4. Đổi `RUN_MODELS = True` sau khi đã điền đủ cấu hình ARIMA và SARIMA.
-5. **Restart Kernel → Run All**, kiểm tra hội tụ, đồ thị và số liệu.
-6. Viết nhận xét trong các ô `TODO`; đối chiếu checklist cuối notebook.
-
-`RUN_MODELS = False` là trạng thái mặc định của bản khung, không phải lỗi.
-Các cấu hình ví dụ trong comment không phải kết luận mô hình của nhóm.
-
-## 3. Nguyên tắc phân tích
-
-- Chia train/test theo thời gian theo tỷ lệ 80/20, không shuffle.
-- Chọn tham số và xử lý dữ liệu từ train; chỉ sử dụng test cho đánh giá cuối.
-- ADF và ACF/PACF được thực hiện trên train tương ứng trước/sau sai phân.
-- Fit ARIMA/SARIMA trên chuỗi train gốc với `d`/`D` tương ứng, tránh sai phân hai lần.
-- Dataset 1 cần MAE, RMSE, MAPE; Dataset 2 cần MAE/RMSE và so sánh trên cùng test.
-- Xác nhận tên nghiệp vụ, đơn vị Dataset 1 theo nguồn trước khi viết báo cáo.
-
-## 4. Làm việc nhóm qua Git
-
-**Không để 6 người cùng sửa notebook tổng hợp.** Mỗi người làm phần riêng trong
-`contributions/`, gửi pull request; leader tích hợp vào notebook tổng hợp.
-Nhánh, phân công review và định nghĩa hoàn thành nằm trong [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Repo chính: [thvhieu/lab2-time-series](https://github.com/thvhieu/lab2-time-series).
-Thành viên clone repo này, không cần tạo repository riêng:
+## Bắt đầu
 
 ```bash
 git clone https://github.com/thvhieu/lab2-time-series.git
 cd lab2-time-series
+python -m venv .venv
 ```
 
-Sau đó thiết lập môi trường theo mục 1 và làm việc trên nhánh phần mình theo
-[CONTRIBUTING.md](CONTRIBUTING.md). Nhánh tích hợp chung là `main`.
+Windows / PowerShell:
 
-## 5. Kiểm tra trước khi gửi PR
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m jupyter lab
+```
 
-Chạy bằng Python trong `.venv` (trên Windows dùng `.\.venv\Scripts\python.exe`):
+macOS / Linux:
+
+```bash
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m jupyter lab
+```
+
+Trong VS Code, chọn interpreter và kernel trong `.venv`. CSV đã có sẵn trong repo.
+
+## Notebook
+
+- [Notebook tổng hợp và xem trước dataset](Lab2_ADF_ARIMA_SARIMA.ipynb)
+- [EDA](contributions/01_eda.ipynb)
+- [ADF và sai phân](contributions/02_adf_differencing.ipynb)
+- [ACF/PACF](contributions/03_acf_pacf.ipynb)
+- [ARIMA và phần dư](contributions/04_arima.ipynb)
+- [Forecast và đánh giá](contributions/05_forecast_evaluation.ipynb)
+- [SARIMA](contributions/06_sarima.ipynb)
+
+Notebook riêng chỉ có đề mục và TODO, chưa điền import hoặc code đọc CSV.
+Chỉ phần mô tả/xem trước dữ liệu trong notebook tổng hợp được thực hiện sẵn; các phần phân tích cần tự hoàn thiện.
+Không có bảng phân công hoặc tên người phụ trách trong notebook.
+
+## Dữ liệu và cấu trúc
+
+- `data/`: hai CSV gốc, [mô tả nguồn](data/SOURCES.md) và manifest hash.
+- `src/lab2_data.py`: đọc dữ liệu và chia 80/20 theo thời gian thống nhất.
+- `contributions/`: notebook riêng theo nội dung.
+- `resources/de_bai_lab2.pdf`: đề bài gốc.
+- `figures/`, `tables/`: đầu ra chạy local, được Git bỏ qua mặc định.
+- `scripts/`, `.github/`: công cụ kiểm tra và CI.
+
+Lưu ý: đường dẫn Dataset 1 trong PDF là a10, dù phần mô tả trong PDF ghi Retail Sales.
+Repo giữ đúng CSV theo URL và đối chiếu mô tả với nguồn chính thức trong notebook.
+
+## Làm việc và tích hợp
+
+Dùng file riêng và nhánh riêng; gửi pull request rồi tích hợp các cell vào notebook tổng hợp.
+Xem [CONTRIBUTING.md](CONTRIBUTING.md) để biết quy trình và phụ thuộc giữa các phần.
+Merge PR đưa file vào repo, không tự ghép nội dung các notebook.
+
+## Kiểm tra
+
+Chạy bằng Python đã cài thư viện trong `.venv`:
 
 ```bash
 python scripts/check_notebooks.py --require-clean
 python scripts/check_data.py
 ```
 
-Để xóa output đã chạy trước khi commit:
+Output có tag `dataset-preview` trong notebook tổng hợp được giữ để GitHub hiển thị bảng/hình.
+Output bài làm thông thường có thể xóa trước commit bằng:
 
 ```bash
 python scripts/check_notebooks.py --clear-outputs
 ```
 
-CI GitHub Actions chạy kiểm tra schema/cú pháp notebook, output sạch và hash CSV khi có push/PR.
-CI này không thay thế kiểm tra **Restart Kernel → Run All** và đánh giá thống kê của nhóm.
-Nếu dùng GitLab, chạy hai lệnh kiểm tra trên local; workflow trong `.github/` dành cho GitHub.
-
-## Mốc bàn giao
-
-| Mốc | Kết quả yêu cầu |
-|---|---|
-| 23/10, 20:00 | EDA, ADF, ACF/PACF và tham số ứng viên sẵn sàng |
-| 24/10, 20:00 | Tất cả thành viên gửi PR có code chạy được và nhận xét |
-| 25/10 | Review chéo, leader tích hợp và chạy lại |
-| 26/10 | Chốt notebook, bảng/đồ thị cuối và nội dung báo cáo |
-
-Các mốc trên là lịch nội bộ đề xuất; nhóm xác nhận giờ chốt cụ thể.
+Lệnh này bảo toàn phần preview; thêm `--clear-previews` nếu chủ động muốn xóa cả preview.
+CI kiểm tra cấu trúc/cú pháp, output lỗi và hash dữ liệu; không thay thế đánh giá thống kê.

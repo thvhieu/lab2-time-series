@@ -20,7 +20,7 @@ jobs:
           python-version: '3.12'
       - name: Install notebook validator
         run: python -m pip install nbformat==5.11.1 ipython==9.17.1
-      - name: Validate notebook structure, syntax and clean outputs
+      - name: Validate notebooks, exercise outputs and saved dataset previews
         run: python scripts/check_notebooks.py --require-clean
       - name: Verify source datasets
         run: python scripts/check_data.py

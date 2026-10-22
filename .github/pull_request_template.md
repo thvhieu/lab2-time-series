@@ -1,19 +1,12 @@
-## Phần thực hiện
-- Thành viên:
-- Bài / câu hỏi:
+## Nội dung thay đổi
+- Bài / phần phân tích:
 - File chính:
+- Phương pháp và kết quả đã chạy:
+- Đầu vào cần nhận / đầu ra bàn giao:
 
-## Thay đổi và kết quả
-- Phương pháp / tham số:
-- Kết quả đã chạy:
-- Phụ thuộc / phần bàn giao cho người tiếp theo:
-
-## Cách kiểm tra
-- [ ] Restart Kernel → Run All phần phụ trách không lỗi.
+## Kiểm tra
+- [ ] Restart Kernel → Run All phần nội dung không lỗi.
 - [ ] `python scripts/check_notebooks.py --require-clean`
 - [ ] `python scripts/check_data.py`
-- [ ] Nhận xét khớp số liệu; không dùng test để chọn tham số.
-- [ ] Không sửa notebook tổng hợp nếu chưa thống nhất với leader.
-
-## Reviewer
-@TODO
+- [ ] Nhận xét khớp số liệu, không dùng test để chọn tham số.
+- [ ] Giữ các cell dataset-preview; không gắn tag này cho lời giải để bỏ qua kiểm tra output.

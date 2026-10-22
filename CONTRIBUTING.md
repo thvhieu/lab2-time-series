@@ -1,69 +1,66 @@
-# Quy trình đóng góp
+# Quy trình làm việc
 
-## Phân nhánh theo phần
+## File riêng, nhánh riêng
 
-| Người | Nhánh đề xuất | File bàn giao trong `contributions/` | Reviewer |
-|---|---|---|---|
-| Leader | `feature/eda-integration` | Notebook tổng hợp, EDA và kết luận | TV6 |
-| TV2 | `feature/adf-differencing` | `tv02_adf.ipynb` + `tv02_notes.md` | TV3 |
-| TV3 | `feature/acf-pacf` | `tv03_acf_pacf.ipynb` + `tv03_notes.md` | TV2 |
-| TV4 | `feature/arima-diagnostics` | `tv04_arima.ipynb` + `tv04_notes.md` | TV5 |
-| TV5 | `feature/forecast-metrics` | `tv05_evaluation.ipynb` + `tv05_notes.md` | TV4 |
-| TV6 | `feature/sarima` | `tv06_sarima.ipynb` + `tv06_notes.md` | Leader |
-
-Đổi TV2...TV6 thành tên thật trong bảng phân công, giữ tên file ổn định.
-Không có notebook thành viên tạo sẵn; mỗi người tạo đúng file phần mình khi bắt đầu.
-
-## Một vòng làm việc
-
-Ví dụ với TV2 (đã clone repo và thiết lập môi trường):
+Làm trên notebook nội dung tương ứng trong `contributions/`; notebook tổng hợp dùng để tích hợp.
+Không để nhiều người đồng thời sửa cùng một file notebook. Không chỉnh sửa CSV gốc.
 
 ```bash
 git switch main
 git pull --ff-only
-git switch -c feature/adf-differencing
-# Làm bài, kiểm tra, clear output trước khi commit.
+git switch -c feature/adf
+# Làm nội dung, chạy thử và viết nhận xét.
 python scripts/check_notebooks.py --clear-outputs
 python scripts/check_notebooks.py --require-clean
 python scripts/check_data.py
-git add contributions/tv02_adf.ipynb contributions/tv02_notes.md
-git commit -m "feat: add ADF and differencing analysis"
-git push -u origin feature/adf-differencing
+git add contributions/02_adf_differencing.ipynb
+git commit -m "feat: add ADF analysis"
+git push -u origin feature/adf
 ```
 
-Nếu nhánh đã tồn tại, dùng `git switch <ten-nhanh>` thay vì tạo lại.
-Sau đó mở PR vào `main`, mô tả phần làm, phép kiểm tra và gắn reviewer theo bảng.
-Reviewer kiểm tra trước; leader merge, tích hợp nội dung cần thiết rồi chạy notebook tổng hợp.
+Ví dụ trên dành cho nội dung ADF; đổi nhánh và file cho nội dung khác.
+Sau đó mở PR vào `main`, mô tả phương pháp/kết quả và nhờ kiểm tra trước khi merge.
+Notebook riêng chỉ có đề mục và TODO; phần import, đọc dữ liệu và xử lý đều cần tự viết.
 
-## Tránh xung đột notebook
+## Phần nào làm song song?
 
-- Chỉ leader chỉnh `Lab2_ADF_ARIMA_SARIMA.ipynb` trong giai đoạn tích hợp.
-- Thành viên chỉ sửa file phần mình trong `contributions/` và file đã thống nhất từ trước.
-- Không copy nguyên notebook tổng hợp thành phần nộp; chỉ giữ phần được giao và cell thiết lập cần thiết.
-- Notebook thành viên nằm dưới `contributions/`: dùng `PROJECT_ROOT = Path.cwd().parent`
-  nếu Jupyter chạy từ thư mục này, hoặc tự tìm thư mục chứa `data/a10.csv` từ thư mục hiện tại và các thư mục cha.
-- Không sửa CSV nguồn, không commit `.venv`, cache hoặc thông tin máy cá nhân.
-- Clear output chỉ xóa output cell; nhận xét trong markdown và code vẫn giữ nguyên.
-- Hình/bảng chạy thử trong `figures/`, `tables/` được ignore. Nếu cần lưu một kết quả cuối,
-  dùng `git add -f <file-ket-qua>` cho đúng file đã review, không thêm toàn bộ thư mục hàng loạt.
+```text
+Dữ liệu + cùng ranh giới train/test
+   ├── EDA --------------------------------------------┐
+   └── ADF / sai phân (cả hai dataset)                  │
+            └── ACF/PACF + cấu hình ứng viên            │
+                   ├── ARIMA DS1 ── forecast/metrics ──┤
+                   ├── ARIMA DS2 ──┐                   │
+                   └── SARIMA DS2 ─┴── so sánh DS2 ────┤
+                                                      └── tích hợp cuối
+```
 
-## Nội dung nhận xét bàn giao
+- EDA và ADF bắt đầu song song sau khi thống nhất dữ liệu; ADF không cần chờ nhận xét EDA.
+- ACF/PACF có thể chuẩn bị code trước, nhưng kết luận p/q/P/Q cần chuỗi đã xử lý và d/D từ ADF.
+- ARIMA và SARIMA chạy song song sau khi có các cấu hình tương ứng.
+- Phần đánh giá viết hàm metrics, kiểm tra index và khung đồ thị trước; số liệu cuối cần forecast thật.
+- So sánh Dataset 2 phải chờ cả ARIMA và SARIMA trên cùng train/test và thang đo.
 
-Mỗi `tvXX_notes.md` cần có: mục tiêu, dữ liệu/phân chia train-test, phép xử lý,
-tham số đã chọn và lý do, kết quả chính, câu trả lời theo đề, hạn chế và phụ thuộc cho người kế tiếp.
-Ghi rõ tên biến hoặc tên file đầu ra. Không viết kết luận số liệu khi chưa chạy.
+## Hợp đồng dữ liệu
 
-## Definition of Done
+`src/lab2_data.py` cung cấp `load_datasets()` và `chronological_split()`.
+Mọi notebook dùng `y1`, `y2`, `train1`, `test1`, `train2`, `test2`, tỷ lệ train 0.80 và chu kỳ 12.
+Dataset 1: 163 train / 41 test; Dataset 2: 115 train / 29 test.
+Không chọn tham số bằng test. Khi thay phép biến đổi, ghi rõ cách hoàn nguyên dự báo về thang gốc.
 
-- [ ] Phần được giao chạy được từ kernel mới và có nhận xét tương ứng.
-- [ ] Notebook hợp lệ; không có lỗi cú pháp; output được clear trước commit.
-- [ ] Không chọn tham số bằng test; ARIMA/SARIMA so sánh trên cùng Dataset 2.
-- [ ] Code giữ nguyên thứ tự thời gian, thang đo và mốc dự báo.
-- [ ] Người phụ thuộc đã nhận đủ cấu hình, code và giải thích.
-- [ ] PR nêu cách kiểm tra và có ít nhất một reviewer đồng ý.
+## Bàn giao giữa các phần
 
-## Trước khi chốt 26/10
+| Phần | Cần bàn giao |
+|---|---|
+| ADF/sai phân | Phép xử lý, d/D, kiểm định trước/sau và code tái tạo |
+| ACF/PACF | Đồ thị, cấu hình ứng viên, lý do chọn p/q/P/Q |
+| Mô hình | Code fit, cấu hình cuối, AIC/BIC, hội tụ/phần dư, cách tạo forecast |
+| Forecast/đánh giá | Dự báo gắn ngày, metrics đúng thang đo, đồ thị và nhận xét |
 
-Leader điền hết TODO, cập nhật tên nhóm, chạy **Restart Kernel → Run All**,
-kiểm tra hội tụ/phần dư, đối chiếu các bảng metrics và xem lại toàn bộ đồ thị.
-Clear output trước commit, giữ code/nhận xét đã hoàn thiện; lưu bảng/đồ thị cuối theo thỏa thuận của nhóm.
+Bàn giao bằng code và kết quả tái tạo được, không chỉ ảnh chụp hay biến đang tồn tại trong kernel.
+
+## Tích hợp cuối
+
+Chép các cell đã kiểm tra theo thứ tự vào notebook tổng hợp, thống nhất import/tên biến,
+rồi Restart Kernel → Run All. Merge PR không tự ghép nội dung notebook.
+Chỉ phần mô tả dữ liệu có output preview lưu sẵn; giữ nguyên tag `dataset-preview` cho các cell đó.
