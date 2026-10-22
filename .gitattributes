@@ -1,0 +1,13 @@
+* text=auto
+*.md text eol=lf
+*.py text eol=lf
+*.ipynb text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
+# Preserve source CSV bytes so manifest hashes survive checkout on any OS.
+data/*.csv -text
+*.pdf binary
+*.png binary
+*.jpg binary

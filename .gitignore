@@ -1,0 +1,36 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter / editor / operating-system state
+.ipynb_checkpoints/
+.jupyter/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Local verification, scratch files and archives
+_checks/
+work/
+*.before-rollback
+*.zip
+*.log
+
+# Reproducible generated outputs (keep directories)
+figures/*
+!figures/.gitkeep
+tables/*
+!tables/.gitkeep

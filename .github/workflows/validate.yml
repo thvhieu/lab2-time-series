@@ -1,0 +1,28 @@
+name: Validate Lab 2
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install notebook validator
+        run: python -m pip install nbformat==5.11.1 ipython==9.17.1
+      - name: Validate notebook structure, syntax and clean outputs
+        run: python scripts/check_notebooks.py --require-clean
+      - name: Verify source datasets
+        run: python scripts/check_data.py
+      - name: Check helper script syntax
+        run: python -m compileall -q scripts
