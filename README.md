@@ -1,7 +1,17 @@
 # Lab 2 | ADF, ARIMA và SARIMA
 
-Notebook khung để thực hành phân tích chuỗi thời gian. Phần đầu đã có **mô tả dataset,
-bảng xem trước và đồ thị dữ liệu thật**; các phần bài làm chỉ chứa `TODO`, chưa có lời giải.
+Repo thực hành và báo cáo tổng hợp phân tích chuỗi thời gian cho hai bộ dữ liệu thực tế (**Dataset 1 — a10** và **Dataset 2 — AirPassengers**). Toàn bộ 6 nhánh đóng góp của các thành viên đã được merge và tích hợp đầy đủ vào notebook báo cáo tổng.
+
+## Phân công nhiệm vụ và trạng thái đóng góp
+
+| Thành viên | GitHub | Nhánh / PR | Phần phụ trách | File đóng góp | Trạng thái |
+|---|---|---|---|---|---|
+| **Trương Hà Vũ Hiệu** (Leader) | `@thvhieu` | `feature/eda`, `main` | Bài 1 — EDA cả 2 dataset; rà soát & tích hợp báo cáo tổng | [`contributions/01_eda.ipynb`](contributions/01_eda.ipynb) | Hoàn thành |
+| **Phan Khoa** | `@khoa-bbc` | `task1` | Bài 2–3 — Kiểm định ADF & sai phân ($d, D$) trên cả 2 dataset | [`contributions/02_adf_differencing.ipynb`](contributions/02_adf_differencing.ipynb) | Hoàn thành |
+| **Minh Quyền** | `@mquyen-kkk` | `feature/acf-pacf` (PR #1) | Bài 4 — Phân tích ACF/PACF & đề xuất cấu hình $(p,d,q)(P,D,Q)_{12}$ | [`contributions/03_acf_pacf.ipynb`](contributions/03_acf_pacf.ipynb) | Hoàn thành |
+| **Lê Ngọc Ánh** | `@lengocanh270706-maker` | `feature/arima` (PR #2) | Bài 5.1–5.3 — Mô hình ARIMA (Dataset 1 & Baseline Dataset 2), AIC/BIC, phần dư & Câu hỏi 1–5 | [`contributions/04_arima.ipynb`](contributions/04_arima.ipynb) | Hoàn thành |
+| **Huy Hoàng** | `@huyhoang210` | `feature/forecast` | Bài 5.4–5.5 — Dự báo ngoài mẫu, đánh giá MAE/RMSE/MAPE, so sánh ARIMA–SARIMA & Câu hỏi 6–9 | [`contributions/05_forecast_evaluation.ipynb`](contributions/05_forecast_evaluation.ipynb) | Hoàn thành |
+| **Trương Lâm Hưng** | `@lamhuwng` | `feature/sarima` (PR #3) | Phần nâng cao — Mô hình SARIMA trên Dataset 2, chẩn đoán phần dư, dự báo & đối chiếu với ARIMA | [`contributions/06_sarima.ipynb`](contributions/06_sarima.ipynb) | Hoàn thành |
 
 ## Bắt đầu
 
@@ -29,17 +39,13 @@ Trong VS Code, chọn interpreter và kernel trong `.venv`. CSV đã có sẵn t
 
 ## Notebook
 
-- [Notebook tổng hợp và xem trước dataset](Lab2_ADF_ARIMA_SARIMA.ipynb)
-- [EDA](contributions/01_eda.ipynb)
-- [ADF và sai phân](contributions/02_adf_differencing.ipynb)
-- [ACF/PACF](contributions/03_acf_pacf.ipynb)
-- [ARIMA và phần dư](contributions/04_arima.ipynb)
-- [Forecast và đánh giá](contributions/05_forecast_evaluation.ipynb)
-- [SARIMA](contributions/06_sarima.ipynb)
-
-Notebook riêng chỉ có đề mục và TODO, chưa điền import hoặc code đọc CSV.
-Chỉ phần mô tả/xem trước dữ liệu trong notebook tổng hợp được thực hiện sẵn; các phần phân tích cần tự hoàn thiện.
-Không có bảng phân công hoặc tên người phụ trách trong notebook.
+- [Báo cáo tổng hợp (đã tích hợp toàn bộ bài làm)](Lab2_ADF_ARIMA_SARIMA.ipynb)
+- [Phần 1 — EDA](contributions/01_eda.ipynb)
+- [Phần 2 — ADF và sai phân](contributions/02_adf_differencing.ipynb)
+- [Phần 3 — ACF/PACF](contributions/03_acf_pacf.ipynb)
+- [Phần 4 — ARIMA và phần dư](contributions/04_arima.ipynb)
+- [Phần 5 — Forecast và đánh giá](contributions/05_forecast_evaluation.ipynb)
+- [Phần 6 — SARIMA nâng cao](contributions/06_sarima.ipynb)
 
 ## Dữ liệu và cấu trúc
 

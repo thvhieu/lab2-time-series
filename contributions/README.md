@@ -1,17 +1,15 @@
-# Notebook theo nội dung
+# Notebook đóng góp theo từng phần
 
-**Đọc phần mô tả ở đầu notebook trước khi chọn việc.** Mỗi file ghi rõ cần làm gì,
-đầu vào phải nhận, việc có thể làm ngay, đầu ra cần bàn giao và tiêu chí hoàn thành.
-Code vẫn chỉ là TODO; chưa có import, xử lý hoặc lời giải điền sẵn.
+Mỗi thành viên thực hiện một notebook độc lập trong `contributions/` trên nhánh riêng, sau đó hợp nhất vào [`Lab2_ADF_ARIMA_SARIMA.ipynb`](../Lab2_ADF_ARIMA_SARIMA.ipynb).
 
-| Notebook | Phạm vi | Hạn bàn giao |
-|---|---|---|
-| [EDA](01_eda.ipynb) | Bài 1 Dataset 1; nhận diện mùa vụ Dataset 2 | 24/10, 20h |
-| [ADF + sai phân](02_adf_differencing.ipynb) | Bài 2–3; kiểm định/xử lý cả hai dataset | 23/10, 20h |
-| [ACF/PACF](03_acf_pacf.ipynb) | Bài 4; tham số thường/mùa vụ cả hai dataset | 24/10, 20h |
-| [ARIMA + phần dư](04_arima.ipynb) | Bài 5 phần mô hình; ARIMA baseline Dataset 2 | 25/10, 20h |
-| [Forecast + đánh giá](05_forecast_evaluation.ipynb) | Bài 5 phần dự báo/metrics; so sánh Dataset 2 | 26/10, 20h |
-| [SARIMA](06_sarima.ipynb) | Fit/forecast/đánh giá nâng cao Dataset 2 | 25/10, 20h |
+| Notebook | Phụ trách | Phạm vi | Hạn bàn giao | Trạng thái |
+|---|---|---|---|---|
+| [EDA](01_eda.ipynb) | Trương Hà Vũ Hiệu (`@thvhieu`) | Bài 1 Dataset 1; nhận diện mùa vụ Dataset 2 | 24/10, 20h | Hoàn thành |
+| [ADF + sai phân](02_adf_differencing.ipynb) | Phan Khoa (`@khoa-bbc`) | Bài 2–3; kiểm định/xử lý cả hai dataset | 23/10, 20h | Hoàn thành |
+| [ACF/PACF](03_acf_pacf.ipynb) | Minh Quyền (`@mquyen-kkk`) | Bài 4; tham số thường/mùa vụ cả hai dataset | 24/10, 20h | Hoàn thành |
+| [ARIMA + phần dư](04_arima.ipynb) | Lê Ngọc Ánh (`@lengocanh270706-maker`) | Bài 5 phần mô hình; ARIMA baseline Dataset 2 | 25/10, 20h | Hoàn thành |
+| [Forecast + đánh giá](05_forecast_evaluation.ipynb) | Huy Hoàng (`@huyhoang210`) | Bài 5 phần dự báo/metrics; so sánh Dataset 2 | 26/10, 20h | Hoàn thành |
+| [SARIMA](06_sarima.ipynb) | Trương Lâm Hưng (`@lamhuwng`) | Fit/forecast/đánh giá nâng cao Dataset 2 | 25/10, 20h | Hoàn thành |
 
 ARIMA và SARIMA là **hai phần riêng**, chỉ chung deadline.
 EDA nằm ngoài 5 lựa chọn bình chọn nếu người tích hợp nhận phần này.
